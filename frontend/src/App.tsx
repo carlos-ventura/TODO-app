@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import LoginPage from './pages/Login'
-import TodoPage from './pages/Todo'
+import TodoPage from './pages/Todos'
 import HomePage from './pages/Home'
 
 const App = (): JSX.Element => {
