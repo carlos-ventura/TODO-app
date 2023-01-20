@@ -26,6 +26,7 @@ const LoginPage = (): JSX.Element => {
 
   return (
     <div>
+      <h1 style={{ textAlign: 'center' }}>Login</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Username:
