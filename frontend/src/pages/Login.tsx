@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 interface IFormData {
   username: string
@@ -34,6 +35,7 @@ const LoginPage = (): JSX.Element => {
         <button type="submit">Login</button>
       </form>
       <br/><br/>
+      <Link to="/">Home</Link>
     </div>
   )
 }
