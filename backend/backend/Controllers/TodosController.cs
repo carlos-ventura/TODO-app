@@ -1,4 +1,4 @@
-using backend.Models;
+﻿using backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,5 +56,19 @@ namespace backend.Controllers {
             return todo;
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTodo(int id) {
+            var todo = await _todoContext.Todos.FindAsync(id);
+            if (todo == null) return NotFound();
+
+            _todoContext.Remove(todo);
+            await _todoContext.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool TodoExists(int id) {
+            return _todoContext.Todos.Any(todo => todo.Id == id);
+        }
     }
 }
