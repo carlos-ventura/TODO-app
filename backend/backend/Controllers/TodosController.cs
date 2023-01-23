@@ -19,5 +19,14 @@ namespace backend.Controllers {
         public async Task<ActionResult<IEnumerable<Todo>>> GetTodos() {
             return await _todoContext.Todos.ToListAsync();
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Todo>> GetTodo(int id) {
+            var todo = await _todoContext.Todos.FindAsync(id);
+            if (todo == null)
+                return NotFound();
+            return todo;
+        }
+
     }
 }
