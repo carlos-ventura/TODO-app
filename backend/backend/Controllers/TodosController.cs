@@ -36,5 +36,25 @@ namespace backend.Controllers {
             return CreatedAtAction(nameof(PostTodo), new { id = todo.Id }, todo);
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Todo>> PutTodo(int id, Todo todo) {
+            if (id != todo.Id)
+                return BadRequest();
+
+            _todoContext.Entry(todo).State = EntityState.Modified;
+
+            try {
+                await _todoContext.SaveChangesAsync();
+            } catch (DbUpdateConcurrencyException) {
+                if (!TodoExists(id)) {
+                    return NotFound();
+
+                } else {
+                    throw;
+                }
+            }
+            return todo;
+        }
+
     }
 }
