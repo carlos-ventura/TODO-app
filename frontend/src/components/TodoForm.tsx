@@ -1,25 +1,29 @@
 import React from 'react'
 import { ITodo } from '../types'
 
-const FormTodo = (): JSX.Element => {
+interface TodoFormProps {
+  createTodo: (todo: ITodo) => Promise<void>
+}
+
+const FormTodo = ({ createTodo }: TodoFormProps): JSX.Element => {
   const [todo, setTodo] = React.useState<ITodo>()
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
     if (todo != null) {
+      await createTodo(todo)
       setTodo(undefined)
-      // add code here to send todo data to server
     }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const text = e.target.value
     const completed = false
-    setTodo((text.length === 0) ? undefined : { text, completed })
+    setTodo((text.length === 0) ? undefined : { id: -1, text, completed })
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={(e) => { void handleSubmit(e) }}>
       <input type="text" name="username" value={(todo != null) ? todo.text : ''} onChange={handleInputChange} placeholder="Add new todo ..."/>
       <button type="submit">
           Add Todo
