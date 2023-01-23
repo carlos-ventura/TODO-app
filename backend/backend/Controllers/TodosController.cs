@@ -28,5 +28,13 @@ namespace backend.Controllers {
             return todo;
         }
 
+        [HttpPost]
+        public async Task<ActionResult<Todo>> PostTodo(Todo todo) {
+            _todoContext.Todos.Add(todo);
+            await _todoContext.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(PostTodo), new { id = todo.Id }, todo);
+        }
+
     }
 }
