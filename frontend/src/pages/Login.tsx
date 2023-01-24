@@ -1,36 +1,41 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-interface IFormData {
-  username: string
-  password: string
-}
+const authAPI = String(process.env.REACT_APP_API_URL) + 'auth'
 
 const LoginPage = (): JSX.Element => {
-  const [formData, setFormData] = useState<IFormData>({
-    username: '',
-    password: ''
-  })
+  const [username, setUsername] = useState<string>('')
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
-    // add code here to send login data to server
-    console.log('username:', formData.username)
-    console.log('password:', formData.password)
+    try {
+      const response = await axios.post(authAPI, {
+        username
+      })
+      const token: string = response.data
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`
+      alert('Logged in')
+    } catch (err) {
+      delete axios.defaults.headers.common.Authorization
+      alert(err)
+    }
+
+    setUsername('')
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
+    const username = e.target.value
+    setUsername(username)
   }
 
   return (
     <div>
       <h1 style={{ textAlign: 'center' }}>Login</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => { void handleSubmit(e) }}>
         <label>
           Username:
-          <input type="text" name="username" value={formData.username} onChange={handleInputChange} />
+          <input type="text" name="username" value={username} onChange={handleInputChange} />
         </label>
         <br />
         <button type="submit">Login</button>
