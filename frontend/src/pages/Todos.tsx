@@ -11,8 +11,12 @@ const TodosPage = (): JSX.Element => {
   const [todos, setTodos] = useState<ITodo[]>([])
 
   const loadTodos = async (): Promise<void> => {
-    const response = await axios.get(todosAPI)
-    setTodos(response.data)
+    try {
+      const response = await axios.get(todosAPI)
+      setTodos(response.data)
+    } catch (err) {
+      alert(err)
+    }
   }
 
   const createTodo = async (todo: ITodo): Promise<void> => {
