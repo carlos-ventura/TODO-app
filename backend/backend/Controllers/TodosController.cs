@@ -1,10 +1,12 @@
 ﻿using backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace backend.Controllers {
+    [Authorize]
     [Route("/tasks")]
     [ApiController]
     public class TodosController : ControllerBase {
