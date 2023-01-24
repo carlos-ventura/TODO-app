@@ -22,6 +22,12 @@ dotnet run --project .\backend.csproj
 2. Connection String needs to be configured for external use
     1. Required database TodoApp
 
+## Allowed usernames for operations on the website
+
+1. root
+2. admin
+3. superuser
+
 ## Bugs and considerations
 
 ### Frontend
