@@ -21,6 +21,7 @@ dotnet run --project .\backend.csproj
 1. For the app to work it requires an SQL server
 2. Connection String needs to be configured for external use
     1. Required database TodoApp
+3. Run ``` update-database ``` on the Nuget Management Console
 
 ## Allowed usernames for operations on the website
 
